@@ -11,18 +11,14 @@ class App extends Component {
         super();
 
         this.state = {
-            text: "Hello Regan Loper!",
-            placeholder: "Enter text here",
+            inputVal: '',
+            text: "Hello Regan Loper!"
         }
     }
 
-    handleInputChange = (value) => {
-        this.setState({ inputVal: value });
-    }
+    handleInputChange = e => this.setState({ inputVal: e.target.value });
+    handleButtonClick = () => this.setState({ hasLoaded: !(this.state.hasLoaded) });
 
-    handleButtonClick = () => {
-        this.setState({ hasLoaded: !(this.state.hasLoaded) });
-    }
 
     componentDidMount() {
         this.setState({ hasLoaded: true });
@@ -31,25 +27,26 @@ class App extends Component {
     render() {
         if (this.state.hasLoaded) {
             return (
-                <React.Fragment>
+                <>
                     <h1>{this.state.text} {this.props.text}</h1>
                     <input
-                        placeholder={this.state.placeholder}
-                        onChange={(event) => this.handleInputChange(event.target.value)}
+                        value={this.state.inputVal}
+                        onChange={this.handleInputChange}
                     />
                     <div>
-                        <button onClick={(() => this.handleButtonClick())}>Submit!</button>
+                        <button onClick={this.handleButtonClick}>Submit!</button>
                     </div>
-                </React.Fragment>
+                    <h1>{this.state.inputVal}</h1>
+                </>
             );
         } else {
             return (
-                <React.Fragment>
+                <>
                     <h1>Loading...</h1>
                     <div>
-                        <button onClick={(() => this.handleButtonClick())}>Submit!</button>
+                        <button onClick={this.handleButtonClick}>Submit!</button>
                     </div>
-                </React.Fragment>
+                </>
             );
 
         }
